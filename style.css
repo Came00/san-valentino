@@ -1,0 +1,285 @@
+html,
+body {
+    overflow: hidden;
+    margin: 0;
+    background-color: #000;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clean-btn {
+    z-index: 2;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: white;
+    text-shadow: 0 0 10px #000000;
+    user-select: none;
+    padding: 0 0 15px 25px;
+    cursor: pointer;
+    opacity: .5;
+}
+
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    outline: none;
+    border: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.name {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 4vw;
+    text-shadow: 0 0 5px #000000;
+    user-select: none;
+    pointer-events: none;
+    font-family: sans-serif;
+}
+
+@media all and (min-width: 640px) {
+    .name {
+        font-size: 45px;
+    }
+}
+
+
+.card {
+    background: rgba(255, 255, 255, 0.281);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 10px 10px rgba(255, 182, 193, 0.05); 
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.gif-container img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-family: 'Garamond', cursive;
+    color: #fa5735; 
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(255, 77, 109, 0.3);
+}
+
+
+
+/* ----------- PARTE CANVAS CON LA SCRITTA -----------*/
+
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+/* button {
+    padding: 15px 40px;
+    font-size: 18px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+} */
+
+
+
+
+button {
+    padding: 15px 40px;
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    
+    /* Effetto Vetro Core */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    
+    /* Riflesso interno superiore per l'effetto "liquido" */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effetto riflesso dinamico al passaggio del mouse */
+button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+}
+
+button:hover::before {
+    transform: scale(1);
+}
+
+button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+
+
+
+
+/* .yes-btn {
+    background-color: #fa56356c;
+    color: white;
+    box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+} */
+
+.yes-btn {
+    background: linear-gradient(135deg, rgba(250, 87, 53, 0.4), rgba(250, 87, 53, 0.15));
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+
+/* .yes-btn:hover {
+    transform: scale(1.1);
+    background-color: #fa5635cc;
+} */
+
+
+.yes-btn:hover {
+    background: linear-gradient(135deg, rgba(250, 87, 53, 0.6), rgba(250, 87, 53, 0.3));
+    box-shadow: 0 8px 32px 0 rgba(250, 87, 53, 0.3);
+}
+
+
+/* .no-btn {
+    background-color: #dededeab;
+    color: #333;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+} */
+
+.no-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.no-btn:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    color: #fff;
+}
+
+
+
+
+.success-message {
+    display: none;
+}
+
+.success-message h2 {
+    font-family: 'Garamond', cursive;
+    color: #fa5735; 
+    font-size: 2.5em;
+}
+
+/* 📱 Mobile */
+@media (max-width: 600px) {
+
+    .card {
+        padding: 25px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .gif-container img {
+        width: 150px;
+        height: 150px;
+    }
+
+    button {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+}
+
+/* 📲 Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .gif-container img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+
+* {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
