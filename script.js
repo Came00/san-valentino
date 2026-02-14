@@ -120,20 +120,59 @@ const noBtn = document.getElementById('noBtn');
 const questionSection = document.getElementById('questionSection');
 const successSection = document.getElementById('successSection');
 
+
 const moveButton = () => {
-    const containerHeight = window.innerHeight;
-    const containerWidth = window.innerWidth;
+    // 1. FIRST: Registriamo la posizione iniziale del tasto YES
+    const yesRectFirst = yesbtn.getBoundingClientRect();
+    const noRectFirst = noBtn.getBoundingClientRect();
 
-    const btnHeight = noBtn.offsetHeight;
-    const btnWidth = noBtn.offsetWidth;
+    if (noBtn.style.position !== "fixed") {
+        // 2. LAST: Rendiamo il tasto NO "fixed". 
+        // In questo istante esatto, il tasto YES "salta" al centro matematicamente
+        noBtn.style.top = `${noRectFirst.top}px`;
+        noBtn.style.left = `${noRectFirst.left}px`;
+        noBtn.style.position = "fixed";
+        noBtn.style.margin = "0";
+        noBtn.style.zIndex = "1000";
 
-    const newTop = Math.random() * (containerHeight - btnHeight);
-    const newLeft = Math.random() * (containerWidth - btnWidth);
+        // 3. INVERT: Calcoliamo di quanto si è spostato lo YES dopo il salto
+        const yesRectLast = yesbtn.getBoundingClientRect();
+        const deltaX = yesRectFirst.left - yesRectLast.left;
 
-    noBtn.style.position = "fixed";
-    noBtn.style.top = `${newTop}px`;
-    noBtn.style.left = `${newLeft}px`;
+        // Disabilitiamo la transizione per un istante e lo riportiamo "indietro" dove era prima
+        yesbtn.style.transition = "none";
+        yesbtn.style.transform = `translateX(${deltaX}px)`;
+
+        // Forza il browser a registrare questa posizione (reflow)
+        yesbtn.offsetHeight; 
+
+        // 4. PLAY: Riattiviamo la transizione e lo facciamo tornare alla posizione 0 (il centro)
+        yesbtn.style.transition = "transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)";
+        yesbtn.style.transform = "translateX(0)";
+    }
+
+    // Movimento del tasto NO verso la posizione random (lo slittamento che ti piace)
+    requestAnimationFrame(() => {
+        const containerHeight = window.innerHeight;
+        const containerWidth = window.innerWidth;
+        const btnHeight = noBtn.offsetHeight;
+        const btnWidth = noBtn.offsetWidth;
+        const padding = 20; 
+        
+        const maxTop = containerHeight - btnHeight - padding;
+        const maxLeft = containerWidth - btnWidth - padding;
+
+        const newTop = Math.max(padding, Math.random() * maxTop);
+        const newLeft = Math.max(padding, Math.random() * maxLeft);
+
+        noBtn.style.top = `${newTop}px`;
+        noBtn.style.left = `${newLeft}px`;
+    });
 };
+
+
+
+
 
 if (window.matchMedia("(max-width: 768px)").matches) {
     noBtn.addEventListener("click", moveButton);
